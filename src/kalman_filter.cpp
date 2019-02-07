@@ -5,7 +5,7 @@ using Eigen::VectorXd;
 
 /* 
  * Please note that the Eigen library does not initialize 
- *   VectorXd or MatrixXd objects with zeros upon creation.
+ * VectorXd or MatrixXd objects with zeros upon creation.
  */
 
 KalmanFilter::KalmanFilter() {}
@@ -24,7 +24,7 @@ void KalmanFilter::Init(VectorXd &x_in, MatrixXd &P_in, MatrixXd &F_in,
 
 void KalmanFilter::Predict() {
   /**
-   * TODO: predict the state
+   * Predict the state
    */
   x_ = F_ * x_;
   MatrixXd Ft = F_.transpose();
@@ -33,7 +33,7 @@ void KalmanFilter::Predict() {
 
 void KalmanFilter::Update(const VectorXd &z) {
   /**
-   * TODO: update the state by using Kalman Filter equations
+   * update the state by using Kalman Filter equations
    */
   VectorXd z_pred = H_ * x_;
   VectorXd y = z - z_pred;
@@ -52,7 +52,7 @@ void KalmanFilter::Update(const VectorXd &z) {
 
 void KalmanFilter::UpdateEKF(const VectorXd &z) {
   /**
-   * TODO: update the state by using Extended Kalman Filter equations
+   * update the state by using Extended Kalman Filter equations
    */
   //translate from Cartesian back to poalr
   float rho = sqrt(x_(0)*x_(0) + x_(1)*x_(1));
@@ -72,10 +72,10 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
   //normalise phi between -pi and pi
   while (y(1)>3.14159 || y(1)<-3.14159){
     if (y(1)>3.14159){
-      y(1)-=3.14159;
+      y(1)-=2*3.14159;
     }
     else if (y(1)<3.14159){
-      y(1)+=3.14159;
+      y(1)+=2*3.14159;
     }
   }
   
